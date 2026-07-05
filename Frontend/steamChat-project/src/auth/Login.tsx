@@ -4,6 +4,7 @@ import { MessageSquareQuote, Lock, Mail, Github, Chrome, AlertCircle } from "luc
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { loginUser } from "../services/api";
+import {authStorage} from "./authUtils";
 
 export const Login = () => {
   const navigate = useNavigate();
@@ -26,10 +27,10 @@ export const Login = () => {
 
       if (response.success && response.token) {
         setSuccess(true);
-        // Store the JWT token and user info
-        localStorage.setItem("token", response.token);
+        // Store the JWT token and user info using authStorage
+        authStorage.setToken(response.token);
         if (response.data) {
-          localStorage.setItem("user", JSON.stringify(response.data));
+          authStorage.setUser(response.data);
         }
 
         setTimeout(() => {

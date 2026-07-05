@@ -3,6 +3,7 @@ import { socket } from "@/socket";
 import { Send, Smile, Paperclip, Users, Circle } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
+import { authStorage } from "../../auth/authUtils";
 
 interface Message {
   message: string;
@@ -22,10 +23,9 @@ export const ChatArea = () => {
   const [activeUsers, setActiveUsers] = useState<any[]>([]);
   const bottomRef = useRef<HTMLDivElement>(null);
 
-  // Synchronously grab user details from localStorage on initial render
+  // Synchronously grab user details from storage on initial render
   const [currentUser] = useState<any>(() => {
-    const storedUser = localStorage.getItem("user");
-    return storedUser ? JSON.parse(storedUser) : null;
+    return authStorage.getUser();
   });
 
   useEffect(() => {

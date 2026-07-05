@@ -4,6 +4,7 @@ import { Login } from "./auth/Login";
 import { Register } from "./auth/Register";
 import { MainLayout } from "./layouts/MainLayout";
 import { ChatPage } from "./pages/chatPage";
+import { ProtectedRoute } from "./auth/ProtectedRoute";
 
 function App() {
   return (
@@ -20,7 +21,14 @@ function App() {
 
     {/*pages routes */}
 
-                  <Route path="/chatPage" element={<ChatPage />} />
+                  <Route
+                    path="/chatPage"
+                    element={
+                      <ProtectedRoute>
+                        <ChatPage />
+                      </ProtectedRoute>
+                    }
+                  />
 
 
           <Route path="*" element={<div>404 Not Found</div>} />
